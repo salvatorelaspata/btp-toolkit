@@ -1,0 +1,13 @@
+<mvc:View
+	controllerName="ui5.quickstart.controller.Info"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+    <Page showNavButton="true" navButtonPress="onNavBack" title="Info">
+        <Button
+            text="Test Rust integration..."
+            press=".onPress"
+            type="Emphasized"
+            class="sapUiSmallMargin"/>
+    </Page>
+</mvc:View>

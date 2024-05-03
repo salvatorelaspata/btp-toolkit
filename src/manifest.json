@@ -1,0 +1,75 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "ui5.quickstart",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "i18n": "i18n/i18n.properties"
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.58.*",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+				"sap.f": {},
+				"sap.tnt": {} 
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "rootView": {
+			"viewName": "ui5.quickstart.view.App",
+			"type": "XML",
+			"async": true
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"path": "ui5.quickstart.view",
+				"controlId": "rootControl",
+				"controlAggregation": "pages",
+				"type": "View",
+				"viewType": "XML",
+				"async": true
+			},
+			"routes": [
+				{
+					"name": "Dashboard",
+					"pattern": "",
+					"target": "Dashboard"
+				},
+				{
+					"name": "Info",
+					"pattern": "Info",
+					"target": "Info"
+				},
+				{
+					"name": "Cockpit",
+					"pattern": "Cockpit",
+					"target": "Cockpit"
+				}
+			],
+			"targets": {
+				"Dashboard": {
+					"name": "Dashboard",
+					"level": 0
+				},
+				"Info": {
+					"name": "Info",
+					"level": 1
+				},
+				"Cockpit": {
+					"name": "Cockpit",
+					"level": 1
+				}
+			}
+        }
+    }
+}

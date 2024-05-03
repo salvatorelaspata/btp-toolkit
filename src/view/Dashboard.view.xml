@@ -1,0 +1,114 @@
+<mvc:View xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	controllerName="ui5.quickstart.controller.Dashboard"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page floatingFooter="true"
+		backgroundDesign="List">
+		<headerContent >
+			<Toolbar width="100%">
+				<ToolbarSpacer />
+				<Title text="{i18n>dashboard.title}"/>
+				<ToolbarSpacer />
+			</Toolbar>
+		</headerContent>
+
+		<l:VerticalLayout id="containerLayout"
+			width="100%">
+
+			<MessageStrip text="{i18n>dashboard.welcome}"
+				type="Information"
+				showIcon="true"/>
+
+			<MessageStrip visible="{= !${dashboardModel>/config/cli_is_installed} }"
+				text="{i18n>dashboard.check.btp_cli_not_installed_description}"
+				type="Warning"
+				showIcon="true"/>
+
+			<ObjectHeader title="{i18n>dashboard.title}"
+				number="{= ${dashboardModel>/config/cli_is_installed} ? ${i18n>dashboard.check.btp_cli_installed} : ${i18n>dashboard.check.btp_cli_not_installed} }"
+				numberState="{= ${dashboardModel>/config/cli_is_installed} ? 'Success' : 'Error' }"
+				intro="{i18n>dashboard.description}"
+				numberUnit="{= ${dashboardModel>/config/authenticated} ? ${i18n>dashboard.authenticated} : ${i18n>dashboard.not_authenticated}}"
+				icon="sap-icon://cloud"
+				responsive="true"/>
+
+			<l:BlockLayout id="BlockLayout"
+				background="Light">
+				<l:BlockLayoutRow accentCells="Accent2">
+					<l:BlockLayoutCell title="{i18n>dashboard.config}">
+						<Panel expandable="true"
+							expanded="true"
+							headerText="{i18n>dashboard.config.login}">
+							<FlexBox direction="Column"
+								width="100%"
+								class="sapUiTinyMarginBeginEnd">
+								<Label text="api endpoint"/>
+								<Input value="{dashboardModel>/config/api_endpoint}"
+									enabled="false"/>
+							</FlexBox>
+							<FlexBox justifyContent="SpaceBetween">
+								<FlexBox direction="Column"
+									width="100%"
+									class="sapUiTinyMarginBeginEnd">
+									<Label text="username"/>
+									<Input value="{dashboardModel>/config/username}"
+										width="100%"/>
+								</FlexBox>
+								<FlexBox direction="Column"
+									width="100%"
+									class="sapUiTinyMarginBeginEnd">
+									<Label text="password"/>
+									<Input value="{dashboardModel>/config/password}"
+										type="Password"
+										width="100%"/>
+								</FlexBox>
+							</FlexBox>
+							<Button text="Login"
+								class="sapUiSmallMarginTop"
+								type="Emphasized"
+								width="100%"
+								press="doLogin"/>
+
+					</Panel>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+			<l:BlockLayoutRow accentCells="Accent1">
+				<l:BlockLayoutCell title="BTP CLI">
+					<Text text="{dashboardModel>/config/cli_version}" />
+					<l:titleLink>
+						<Link target="_blank"
+							text="BTP CLI"
+							href="https://help.sap.com/docs/btp/btp-cli-command-reference/btp-cli-command-reference" />
+					</l:titleLink>
+				</l:BlockLayoutCell>
+				<l:BlockLayoutCell title="--help"
+					width="2">
+					<ExpandableText text="{dashboardModel>/config/help}" />
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+		</l:BlockLayout>
+	</l:VerticalLayout>
+	<footer>
+		<Toolbar>
+			<Button icon="sap-icon://log"
+				iconFirst="false"
+				type="Reject"
+				visible="{dashboardModel>/config/authenticated}"
+				press="doLogout"/>
+			<Button tooltip="Info"
+				icon="sap-icon://information"
+				iconFirst="false"
+				type="Emphasized"
+				press=".goToInfo"/>
+			<ToolbarSpacer />
+			<Button text="Go to Cockpit"
+				icon="sap-icon://home"
+				iconFirst="false"
+				type="Accept"
+				press=".goToCockpit"/>
+		</Toolbar>
+	</footer>
+</Page>
+</mvc:View>
