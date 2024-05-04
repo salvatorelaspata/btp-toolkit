@@ -24,8 +24,8 @@ fn run_command(args: Vec<&str>) -> String {
 }
 
 #[tauri::command]
-fn login(endpoint: &str, username: &str, password: &str) -> String {
-    BtpCli::new().login(endpoint, username, password)
+fn login(endpoint: &str, username: &str, password: &str, global_account: &str) -> String {
+    BtpCli::new().login(endpoint, username, password, global_account)
 }
 
 #[tauri::command]

@@ -17,8 +17,13 @@ async function help() {
   return await invoke("run_command", { args: ['--help'] });
 }
 
-async function login({endpoint, username, password}) {
-  return await invoke("login", {endpoint, username, password});
+async function login({endpoint, username, password, globalAccount}) {
+  console.log('*******', endpoint, username, password, globalAccount)
+  return await invoke("login", { endpoint, username, password, globalAccount });
+}
+
+async function target_list() {
+  return await invoke("run_command", { args: ['target', '--hierarchy'] });
 }
 
 sap.ui.define([], () => {
@@ -27,6 +32,7 @@ sap.ui.define([], () => {
     check_btp,
     get_cli_version,
     help,
-    login
+    login,
+    target_list
   };
 });

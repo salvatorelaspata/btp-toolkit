@@ -18,7 +18,9 @@ sap.ui.define([
                     api_endpoint: "https://cli.btp.cloud.sap", // api endpoint
                     username: "salvatore.laspata@gotonext.it", // api username
                     password: "", // api password
-                    authenticated: false
+                    global_account: "", // global account
+                    authenticated: false,
+                    targets: ""
                 },
                 checks: []
             });
@@ -54,11 +56,21 @@ sap.ui.define([
             const endpoint = oModel.getProperty('/config/api_endpoint');
             const username = oModel.getProperty('/config/username');
             const password = oModel.getProperty('/config/password');
+            const globalAccount = oModel.getProperty('/config/global_account');
             (async () => {
-                const res = await lib.login({endpoint, username, password});
+                const res = await lib.login({endpoint, username, password, globalAccount});
                 if(res) {
                     oModel.setProperty('/config/authenticated', true);
-                    MessageBox.success(this.getResourceBundle().getText("dashboard.login.success"));
+
+                    // get the list of targets
+                    try {
+                        const targets = await lib.target_list();
+                        oModel.setProperty('/config/targets', targets);
+                        MessageBox.success(this.getResourceBundle().getText("dashboard.login.success") + targets);
+                    } catch (error) {
+                        console.log(error);
+                    }
+
                 } else {
                     console.log(res)
                     MessageToast.show(this.getResourceBundle().getText("dashboard.login.error") + " " + res);

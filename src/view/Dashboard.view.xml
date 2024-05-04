@@ -41,12 +41,20 @@
 						<Panel expandable="true"
 							expanded="true"
 							headerText="{i18n>dashboard.config.login}">
-							<FlexBox direction="Column"
-								width="100%"
-								class="sapUiTinyMarginBeginEnd">
-								<Label text="api endpoint"/>
-								<Input value="{dashboardModel>/config/api_endpoint}"
-									enabled="false"/>
+							<FlexBox justifyContent="SpaceBetween">
+								<FlexBox direction="Column"
+									width="100%"
+									class="sapUiTinyMarginBeginEnd">
+									<Label text="api endpoint"/>
+									<Input value="{dashboardModel>/config/api_endpoint}"
+										enabled="false"/>
+								</FlexBox>
+								<FlexBox direction="Column"
+									width="100%"
+									class="sapUiTinyMarginBeginEnd">
+									<Label text="global account"/>
+									<Input value="{dashboardModel>/config/global_account}"/>
+								</FlexBox>
 							</FlexBox>
 							<FlexBox justifyContent="SpaceBetween">
 								<FlexBox direction="Column"
@@ -70,6 +78,7 @@
 								type="Emphasized"
 								width="100%"
 								press="doLogin"/>
+						<MessageStrip text="{dashboardModel>/config/targets}" type="Information" visible="{= !!${dashboardModel>/config/targets}}"/>
 
 					</Panel>
 				</l:BlockLayoutCell>
